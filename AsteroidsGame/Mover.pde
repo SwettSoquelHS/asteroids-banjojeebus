@@ -1,3 +1,4 @@
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  All objects in this world that move must implemnt the Movalbe interface.
  */
@@ -10,11 +11,14 @@ interface Movable {
   /*
     Return the y location of the Movable
    */
+
   float getY();
 
   /*
     Return the direction of the Movable in degrees.
    */
+
+  
   float getDirection();
 
   /*
@@ -30,6 +34,8 @@ interface Movable {
    Return the radius of influence. If you could draw a circle
    around your object, then what would this radius be.
    */
+
+   
   float getRadius();
 
   /* 
@@ -67,34 +73,56 @@ interface Movable {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  Abstract base class Mover 
  */
-abstract class Mover {// implements Movable {
+abstract class Mover implements Movable  {
 
   protected float x, y;
   protected float speed;
   protected float direction;
   protected int myColor;
   protected float radius;  
-
+  protected float spin;
+  float getX(){
+    return x;
+  }
+  float getY(){
+    return y;
+  }
+  float getRadius(){
+    return radius;
+  }
+  float getDirection(){
+    return direction;
+  }
+  float getSpeed(){
+    return speed;
+  }
+  
   /*
     Default Mover, not actually moving and directionless
-  */
+   */
+  Mover(){
+    super();
+  }
   Mover(float x, float y) {
     //The line below shows how we can 
     //link this constructor to the constructor below through "this"
-    this(x, y, 0, 0);  
+    
+    this(x, y, 0, 0, 0, 0);
+    
   }
 
   /*
     Mover constructor specifying x, y position along with its speed and
-    direction (in degrees)
-  */
-  Mover(float x, float y, float speed, float direction) {
+   direction (in degrees)
+   */
+  Mover(float x, float y, float speed, float direction, float spin, float radius) {
     this.x = x;
     this.y = y;
     this.speed = speed;
     this.direction = direction;
+    this.spin = spin;
     myColor = 225;
-    radius = 0.0;
+    this.radius = radius;
   }
 
   /*
@@ -103,17 +131,35 @@ abstract class Mover {// implements Movable {
   void update() {
     x = x + speed*(float)Math.cos(radians(direction));
     y = y + speed*(float)Math.sin(radians(direction));
-
+    spin = spin+0.3*(float)Math.sin(radians(direction));
+    if( x > width + 100){
+      x = -55;  
+    }
+    if( x < -100){
+      x = width +55; 
+    }
+    if( y > height + 100){
+      y = -55; 
+    }
+    if(y < -100){
+      y = height +55; 
+    }
     //todo: You need to decide what to do when X is less than 0 or greater than width
     //todo: You need to decide what to do when Y is less than 0 or greater than height
   }
 
+  void setDirection(float newDirectionInDegrees){
+   
+  }
 
+ 
+  void setSpeed(float newSpeed){
+  }
 
   /*
     Save this for your subclasses to override.
-    but notice how it is tagged with abstract, meaning 
-    it is incomplete. (It's like an I.O.U.)
+   but notice how it is tagged with abstract, meaning 
+   it is incomplete. (It's like an I.O.U.)
    */
   abstract void show();
 
@@ -121,9 +167,17 @@ abstract class Mover {// implements Movable {
   /*
     TODO: Part 4: Implement collision detection
    */
-  boolean collidingWith(Movable object){
-     return false; 
+  boolean collidingWith(Movable m) {
+    if(this == m){
+      return false;
+    }
+    float distance = dist(x, y, m.getX(), m.getY());
+    
+    if((radius + m.getRadius()) >= distance){
+      return true;
+    }
+    return false;
   }
-  
+
   //TODO: Part I: implement the methods of Moveable interface - delete this comment
 }
