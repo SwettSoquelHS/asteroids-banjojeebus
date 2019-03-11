@@ -25,12 +25,15 @@ class Asteroid extends Mover {
     rotate(radians(spin));
     fill(#905E11);
     beginShape();
-    vertex(100, 50);
-    vertex(110, 70);
-    vertex(70, 80);
-    vertex(70, 50);
-    vertex(80,30);
+    vertex(0, 30);
+    vertex(20, 20);
+    vertex(20, -10);
+    vertex(0, -20);
+    vertex(-30,-20);
+    vertex(-10,30);
+    
     endShape();
+    //ellipse(0,0,2*radius, 2*radius);
     popMatrix();
 
   }

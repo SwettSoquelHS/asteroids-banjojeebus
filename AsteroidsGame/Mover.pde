@@ -149,7 +149,7 @@ abstract class Mover implements Movable  {
   }
 
   void setDirection(float newDirectionInDegrees){
-   
+     
   }
 
  
@@ -173,7 +173,7 @@ abstract class Mover implements Movable  {
     }
     float distance = dist(x, y, m.getX(), m.getY());
     
-    if((radius + m.getRadius()) >= distance){
+    if((radius + m.getRadius()) > distance){
       return true;
     }
     return false;

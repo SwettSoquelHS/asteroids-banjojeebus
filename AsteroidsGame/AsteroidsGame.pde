@@ -28,7 +28,7 @@ public void setup() {
   //initialize your asteroid array and fill it
 
   //initialize ship
-  player1 = new Spaceship(width/2.0, height/2.0, 1.0, 225.0,30);
+  player1 = new Spaceship(width/2.0, height/2.0, 1.0, 225.0, 30);
 
 
   //initialize starfield
@@ -50,9 +50,9 @@ public void setup() {
     float y = (float)((height) * Math.random());
     float speed = 1;
     float direction = (float)(360 * Math.random());
-    float radius = 15;
+    float radius = 25;
     float spin = 0;
-    asteroids[i] = new Asteroid(x, y, speed, direction, radius,spin);
+    asteroids[i] = new Asteroid(x, y, speed, direction, radius, spin);
   }
 }
 
@@ -67,13 +67,11 @@ public void draw() {
   player1.update();
 
   for (int i = 0; i < asteroids.length; i++) {
-    checkOnAsteroids();
+
     asteroids[i].update();
     asteroids[i].show();
-
-
+    checkOnAsteroids();
   }
-
 
   //Check for rotations
 
@@ -150,17 +148,15 @@ public void keyReleased() {
 
 
 void checkOnAsteroids() {
-  Spaceship player = player1;
+
   for (int i = 0; i < asteroids.length; i++) {
-    Asteroid a1 = asteroids[i]; 
+    Asteroid a1 = asteroids[i];
     for (int j = 0; j < asteroids.length; j++) {
       Asteroid a2 = asteroids[j]; 
       if (a1 != a2 && a1.collidingWith(a2)) {
-        a1.direction =  (float)(360 * Math.random());
-        a2.direction = (float)(360 * Math.random());
-      }
-      
+        a1.direction = a1.direction + (float)(-180* Math.random());
 
+      }
     }
   }
 }
