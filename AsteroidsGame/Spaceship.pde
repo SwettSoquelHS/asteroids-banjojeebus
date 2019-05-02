@@ -4,13 +4,13 @@
  You may add additional methods to this class, for example "rotate" and "accelerate" 
  might be useful.
  */
-
+Bullet myBullet;
 class Spaceship extends Mover {
 
 
 
 
-  Spaceship(float x, float y, float speed, float direction,float radius) {
+  Spaceship(float x, float y, float speed, float direction, float radius) {
 
     this.x = x;
     this.y = y;
@@ -19,7 +19,11 @@ class Spaceship extends Mover {
     myColor = 225;
     this.radius = radius;
   }
-
+  void fire() {
+    if (myBullet != null && !myBullet.isAlive()) {
+      myBullet = new Bullet(); //Make sure you have declared a Bullet myBullet for the spaceship
+    }
+  }
   void show() {
     if (ROTATE_LEFT)
       direction -= 4.5;
@@ -86,6 +90,12 @@ class Spaceship extends Mover {
     ellipse(-50, -30, 10, 8);
     ellipse(-50, 30, 10, 8);
 
+    if (SPACE_BAR == true) {
+      rect(x, y, x+10, y+20);
+    }
+
+
+
     popMatrix();
   }
   public  void keyPressed() {
@@ -102,6 +112,7 @@ class Spaceship extends Mover {
     //32 is spacebar
     if (keyCode == 32) {  
       SPACE_BAR = true;
+      player1.fire();
     }
   }
 

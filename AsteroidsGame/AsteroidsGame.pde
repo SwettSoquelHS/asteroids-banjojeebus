@@ -1,10 +1,11 @@
-
+import java.util.ArrayList;
 /* * * * * * * * * * * * * * * * * * * * * * *
  Class variable declarations here
  */
 Spaceship player1;
 Star[] stars;
 Asteroid[] asteroids;
+
 //Asteroid[] asteroids;
 //Star[] starField;
 
@@ -123,6 +124,7 @@ public void keyPressed() {
   //32 is spacebar
   if (keyCode == 32) {  
     SPACE_BAR = true;
+    player1.fire();
   }
 }
 

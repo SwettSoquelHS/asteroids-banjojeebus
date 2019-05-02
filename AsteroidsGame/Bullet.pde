@@ -6,6 +6,21 @@ class Bullet extends Mover {
     this.speed = speed;
     this.direction = direction;
     this.radius = radius;
-    private int live = 100;
+    int live = 100;
+  }
+  
+  public Bullet(){
+   super.update();
+
+  }
+  public boolean isAlive(){
+    return true; 
+  }
+  
+  void show(){
+    pushMatrix();
+    translate(x,y);
+    rect(x,y,x+10,y+20);
+    popMatrix();
   }
 }
